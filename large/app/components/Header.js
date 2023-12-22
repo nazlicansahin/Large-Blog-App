@@ -1,4 +1,4 @@
-
+import { LuPenSquare } from "react-icons/lu";
 const Header = (props) => {
 
 return(
@@ -67,7 +67,7 @@ return(
                 className="block shrink-0 rounded-lg bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700"
               >
                 <span className="sr-only">Write</span>
-                <i className='fas fa-edit'></i>
+                <i className='bi bi-pencil-square'><LuPenSquare /></i>
               </a>
     
               <a
@@ -96,7 +96,7 @@ return(
               <span className="sr-only">Menu</span>
               <img
                 alt="Man"
-                src={props.profilePic}
+                src="https://picsum.photos/200/300"
                 className="h-10 w-10 rounded-full object-cover"
               />
     
