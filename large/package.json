@@ -22,11 +22,14 @@
     "@editorjs/paragraph": "^2.11.3",
     "@editorjs/quote": "^2.6.0",
     "@editorjs/simple-image": "^1.6.0",
+    "@nextui-org/react": "^2.2.9",
     "@reduxjs/toolkit": "^2.0.1",
     "bootstrap-icons": "^1.11.2",
     "editorjs-html": "^3.4.3",
     "formik": "^2.4.5",
+    "framer-motion": "^10.16.16",
     "json-server": "^0.17.4",
+    "marked": "^11.1.0",
     "next": "^13.5.6",
     "primereact": "^10.2.1",
     "react": "^18",
@@ -35,6 +38,7 @@
     "yup": "^1.3.3"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",

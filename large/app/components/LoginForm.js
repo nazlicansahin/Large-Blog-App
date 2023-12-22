@@ -1,11 +1,17 @@
 import { useFormik } from "formik";
+import * as Yup from 'yup';
+const validationSchema = Yup.object({
 
+	email: Yup.string().email('Geçersiz e-mail adresi').required('Zorunlu alan'),
+});
 const LoginForm = () => {
     const formik = useFormik({
         initialValues: {
             email: "",
             password: "",
         },
+        validationSchema,
+
         onSubmit: (values) => {
             console.log(values);
         },
@@ -40,12 +46,11 @@ const LoginForm = () => {
         </a>
 
         <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
-          Welcome to Squid 🦑
+          Welcome to Large
         </h2>
 
         <p className="mt-4 leading-relaxed text-white/90">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum aliquam,
-          quibusdam aperiam voluptatum.
+          Large going to be bigger than Medium. We are not jealous and just working on it.
         </p>
       </div>
     </section>
@@ -83,9 +88,8 @@ const LoginForm = () => {
           </p>
         </div>
 
-        <form action="#" className="mt-8 grid grid-cols-6 gap-6">
+        <form action="#" className="mt-8 grid grid-cols-6 gap-6" onSubmit={formik.handleSubmit}>
           
-
 
           <div autoComplete = "off" className="col-span-6">
             <label htmlFor="Email" className="block text-sm font-medium text-gray-700"> Email </label>
@@ -98,6 +102,8 @@ const LoginForm = () => {
               value={formik.values.email}
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
             />
+            			{formik.errors.email ? formik.errors.email : null}
+
           </div>
 
           <div className="col-span-6 sm:col-span-3">

@@ -1,9 +1,43 @@
 "use client";
+import {Skeleton} from "@nextui-org/react";
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PostCard from "../components/PostCard";
-export default function Blogs() {
+export default function Blogs() {  const [scrollDirection, setScrollDirection] = useState("none");
+const [prevScrollPos, setPrevScrollPos] = useState(0);
+const [headerVisible, setHeaderVisible] = useState(true);
+const [scrollDelayTimer, setScrollDelayTimer] = useState(null);
+const scrollDelayDuration = 200; // Adjust this value as needed
+
+const handleScroll = () => {
+  const currentScrollPos = window.pageYOffset;
+  setScrollDirection(prevScrollPos > currentScrollPos ? "up" : "down");
+  setPrevScrollPos(currentScrollPos);
+
+  clearTimeout(scrollDelayTimer);
+
+  // Set a delay before toggling header visibility
+  setScrollDelayTimer(
+    setTimeout(() => {
+      if (scrollDirection === "down") {
+        setHeaderVisible(false);
+      } else if (scrollDirection === "up") {
+        setHeaderVisible(true);
+      }
+    }, scrollDelayDuration)
+  );
+};
+
+useEffect(() => {
+  window.addEventListener("scroll", handleScroll);
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+    clearTimeout(scrollDelayTimer);
+  };
+}, [prevScrollPos, scrollDirection, scrollDelayTimer]);
+
   // const data = [
   //     {
   //       id: 1,
@@ -58,28 +92,58 @@ export default function Blogs() {
   }, []);
   //saving data
 
+  // return (
+  //   <div className="bg-white py-24 sm:py-32">
+  //     <div className="fixed top-0 left-0 right-0  z-40">
+  //       <Header />
+  //     </div>
+  //     <div className="mx-auto max-w-7xl px-6 lg:px-8">
+  //       <div className="mx-auto max-w-2xl lg:mx-0">
+  //         <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+  //           From the blog
+  //         </h2>
+  //         <p className="mt-2 text-lg leading-8 text-gray-600">
+  //           Learn how to grow your business with our expert advice.
+  //         </p>
+  //       </div>
+  //       <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+  //         {!data
+  //           ? "yukleniyor"
+  //           : data.map((post) => (
+  //               <article
+  //                 key={post.id}
+  //                 className="flex max-w-xl flex-col items-start justify-between"
+  //               >
+  //                 <PostCard
+  //                   title={post.fields.title}
+  //                   desc={post.fields.desc}
+  //                   image={post.fields.image.url}
+  //                   address={post.id}
+  //                 />
+  //               </article>
+  //             ))}
+  //       </div>
+  //     </div>
+  //     <div className="fixed bottom-0 left-0 right-0 z-40">
+  //       <Footer />
+  //       </div>
+  //   </div>
+  // );
+
+
+
   return (
     <div className="bg-white py-24 sm:py-32">
-      <div className="fixed top-0 left-0 right-0  z-40">
-        <Header />
-      </div>
+      <Header isVisible={headerVisible} />
+      {/* Rest of your content */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            From the blog
-          </h2>
-          <p className="mt-2 text-lg leading-8 text-gray-600">
-            Learn how to grow your business with our expert advice.
-          </p>
-        </div>
+        {/* ... Your content here ... */}
+        {/* Example usage of PostCard */}
         <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {!data
-            ? "yukleniyor"
+            ? "Loading"
             : data.map((post) => (
-                <article
-                  key={post.id}
-                  className="flex max-w-xl flex-col items-start justify-between"
-                >
+                <article key={post.id} className="flex max-w-xl flex-col items-start justify-between">
                   <PostCard
                     title={post.fields.title}
                     desc={post.fields.desc}
@@ -90,9 +154,7 @@ export default function Blogs() {
               ))}
         </div>
       </div>
-      <div className="fixed bottom-0 left-0 right-0 z-40">
-        <Footer />
-        </div>
+      <Footer />
     </div>
   );
 

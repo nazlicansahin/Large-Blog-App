@@ -1,72 +1,63 @@
-"use client"
-import CommentForm from "@/app/components/CommentForm"
-import React from 'react';
-import { useEffect,useState } from "react";
+"use client";
 
-// export default function Blog({params} ) {
-//     const id = params.id
-    // return (
-    //   <>{id}
-    //   <CommentForm />
-    //   </>
-    // )
-  
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import { marked } from "marked";
 
-//     const res = await fetch('http://localhost:3000/blogs/'+id, {
-//       next: {
-//         revalidate:60
-//       }
-//     })
+const PostPage = ({ params }) => {
+  const createMarkup = (htmlContent) => {
+    return { __html: htmlContent };
+  };
+  const { id } = params;
+  const [post, setPost] = useState();
 
-//     const json = await res.json();
-//     return json;
-//   }
+  const fetchPost = async () => {
+    try {
+      const response = await fetch(`/api/blogs/${id}`, {
+        method: "GET",
+        cache: "no-cache",
+        headers: {
+          "Cache-Control": "no-cache",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+      const data = await response.json(); // Parse the response as JSON
+      setPost(data);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
 
-// export default async function Blog({params} ) {
-//     const blog = await getBlog(params.id);
-//     return (
-//       <main>
-//         <h1>{blog.title}</h1>
-//         <p>{blog.content}</p>
-//       </main>
-//     )
-//     }
+  useEffect(() => {
+    fetchPost();
+  }, []);
 
-export default function Blog({params}){
-const {id} = params;
-  
-const [data, setData] = useState();
-
-const getData = async () => {
-  try {
-    const resp = await fetch(`/api/blogs/${id}`, 
-              {cache: "no-cache",
-              headers: {"Cache-Control": "no-cache",}});
-    const json = await resp.json();
-    setData(json);
-    console.log('Veri aldık');
-    console.log(data)
-  } catch (error) {
-    console.error('Veri alınamadı veya işlenirken hata oluştu:', error);
-  }
+  return (
+    <div className="container mx-auto">
+      {post && (
+        <div className="prose lg:prose-xl mx-auto">
+          <h1 className="text-2xl font-bold">{post.fields.title}</h1>
+          <Image
+            src={post.fields.image.url}
+            alt={post.fields.title}
+            width={500}
+            height={300}
+          />
+          <div
+          className="markdown mt-4"
+            dangerouslySetInnerHTML={createMarkup(marked(post.fields.text))}
+          />
+          <div className="flex justify-between mt-4">
+            <span className="text-gray-500">
+              Likes: {post.fields.likeCount}
+            </span>
+            <span className="text-gray-500">Comments:</span>
+          </div>
+          <div className="mt-4">{/* Comment section */}</div>
+        </div>
+      )}
+    </div>
+  );
 };
-//title desc image likeCount authorName publishDate 
-useEffect(() => {
-  getData();
-}, []);
 
-return(
-  <main>
-    { !data ? "yukleniyor" : 
-      <>
-           <h1>{data.fields.title}</h1>
-     <p>{data.fields.text}</p>
-      </>
-
-    
-     }
-  </main>
-)
-
-}
-
+export default PostPage;
