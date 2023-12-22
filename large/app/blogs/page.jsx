@@ -1,6 +1,8 @@
 'use client'
 import BlogPost from "../components/BlogPost";
 import { useState, useEffect } from "react";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 export default function Blogs() {
     // const data = [
     //     {
@@ -59,8 +61,11 @@ useEffect(() => {
 
 return (
     <div>
-        <div className="grid gap-4"> 
-            <div className="grid grid-cols-6 gap-6">
+      <div  className= "fixed top-0 left-0 right-0 ">
+      <Header  />
+      </div>
+        <div className="grid grid-cols-3 gap-2 ml-8 flex "> 
+            <div className="justify-center grid grid-cols-3 gap-4">
                 { !data ?"yukleniyor" : 
                 
                 data.map(post => (
@@ -68,7 +73,14 @@ return (
                         <BlogPost  title ={post.fields.title} desc = {post.fields.desc} image ={post.fields.image.url} address={post.id} />
                     </article>
                 ))}
+                
             </div>
+            <div className="grid grid-cols-6 gap-1">
+       </div>
+        </div>
+        <div  className= "bottom-0 left-0 right-0">
+
+        <Footer />
         </div>
     </div>
   );

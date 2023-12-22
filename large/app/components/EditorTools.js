@@ -17,8 +17,8 @@ export const EDITOR_TOOLS = {
       class: Header,
       config: {
         placeholder: 'Enter a Header',
-        levels: [2, 3, 4],
-        defaultLevel: 2
+        levels: [1,2, 3, 4],
+        defaultLevel: 3
     }
   },
   paragraph: Paragraph,

@@ -3,11 +3,9 @@ const Footer = () => {
 
     return (
 <footer className="bg-white">
-  <div className="mx-auto max-w-screen-xl px-4 pb-8 pt-16 sm:px-6 lg:px-8 lg:pt-24">
-
-
+  <div className="mx-auto max-w-screen-xl px-2 pb-4 pt-8 sm:px-3 lg:px-4 lg:pt-6">
     <div
-      className="mt-16 border-t border-gray-100 pt-8 sm:flex sm:items-center sm:justify-between lg:mt-24"
+      className="mt-8 border-t border-gray-100 pt-8 sm:flex sm:items-center sm:justify-between lg:mt-12"
     >
       <ul className="flex flex-wrap justify-center gap-4 text-xs lg:justify-end">
         <li>
