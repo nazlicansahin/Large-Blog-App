@@ -1,15 +1,13 @@
-
+import Image from "next/image"
+import Link from "next/link"
 const BlogPost = (props) => {
-const desc = (content) => {
-  const description = content.split(' ').slice(0, 20).join(' ');
-  return description;
-}
+
     return (
 
 <article className="overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm">
-  <img
+  <Image
     alt={props.title}
-    src={props.image}
+    src={props.image} width={300} height={300}
     className="h-56 w-full object-cover"
   />
 
@@ -21,16 +19,16 @@ const desc = (content) => {
     </a>
 
     <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
-      {desc(props.desc)}
+      {props.desc}
     </p>
 
-    <a href={props.address} className="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600">
+    <Link href={'blogs/'+ props.address} className="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600">
       Read more
 
       <span aria-hidden="true" className="block transition-all group-hover:ms-0.5 rtl:rotate-180">
         &rarr;
       </span>
-    </a>
+    </Link>
   </div>
 </article>
     )

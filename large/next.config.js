@@ -1,4 +1,10 @@
+const { array } = require('yup')
+
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+
+    reactStrictMode :true,
+    images : {domains:['v5.airtableusercontent.com'],}
+}
 
 module.exports = nextConfig

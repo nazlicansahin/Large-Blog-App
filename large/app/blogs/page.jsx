@@ -39,12 +39,13 @@ const [data, setData] = useState([]);
 
 const getData = async () => {
   try {
-    const resp = await fetch('https://blog-app-smoky-six.vercel.app/api/posts', {mode: 'no-cors'
-  });
+    const resp = await fetch('api/blogs', 
+              {cache: "no-cache",
+              headers: {"Cache-Control": "no-cache",}});
     const json = await resp.json();
     setData(json);
     console.log('Veri aldık');
-    console.log(json)
+    console.log(data)
   } catch (error) {
     console.error('Veri alınamadı veya işlenirken hata oluştu:', error);
   }
@@ -53,14 +54,18 @@ const getData = async () => {
 useEffect(() => {
   getData();
 }, []);
+//saving data
+
 
 return (
     <div>
         <div className="grid gap-4"> 
             <div className="grid grid-cols-6 gap-6">
-                {data.map(post => (
+                { !data ?"yukleniyor" : 
+                
+                data.map(post => (
                     <article key={post.id}>
-                        <BlogPost  title ={post.title} desc = {post.content} image ={post.image} address={'http://localhost:3000/blogs/'+post.id} />
+                        <BlogPost  title ={post.fields.title} desc = {post.fields.desc} image ={post.fields.image.url} address={post.id} />
                     </article>
                 ))}
             </div>
