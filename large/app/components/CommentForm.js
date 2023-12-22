@@ -9,8 +9,8 @@ const CommentForm = () => {
 
   const validate = (values) => {
     const errors = {};
-    if (!values.name) {
-      errors.name = 'Required';
+    if (!values.email) {
+      errors.email = 'Required';
     }
     if (!values.email) {
       errors.email = 'Required';

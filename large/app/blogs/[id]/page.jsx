@@ -1,16 +1,16 @@
 "use client"
 import CommentForm from "@/app/components/CommentForm"
+import React from 'react';
 
-export default function Blog({params} ) {
-    const id = params.id
-    return (
-      <>{id}
-      <CommentForm />
-      </>
-    )
-  }
+// export default function Blog({params} ) {
+//     const id = params.id
+    // return (
+    //   <>{id}
+    //   <CommentForm />
+    //   </>
+    // )
+  
 
-//   async function getBlog(id) {
 //     const res = await fetch('http://localhost:3000/blogs/'+id, {
 //       next: {
 //         revalidate:60
@@ -29,4 +29,5 @@ export default function Blog({params} ) {
 //         <p>{blog.content}</p>
 //       </main>
 //     )
-//   }
+  
+
