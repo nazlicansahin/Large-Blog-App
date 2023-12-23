@@ -2,8 +2,7 @@ import { LuPenSquare } from "react-icons/lu";
 const Header = (props) => {
 
 return(
-
-<div className={`fixed top-0 left-0 right-0 z-40 transition-opacity duration-300 ${props.isVisible ? 'opacity-100' : 'opacity-0 hidden'}`}>
+<div>
 <header className="bg-gray-50">
       <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
       <script src="https://kit.fontawesome.com/5445e42770.js" crossOrigin="anonymous"></script><div className="flex items-center sm:justify-between sm:gap-4">
@@ -97,7 +96,7 @@ return(
               <span className="sr-only">Menu</span>
               <img
                 alt="Man"
-                src="https://picsum.photos/200/300"
+                src={props.profilePic}
                 className="h-10 w-10 rounded-full object-cover"
               />
     

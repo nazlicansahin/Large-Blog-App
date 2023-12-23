@@ -1,8 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
-export async function GET(Request) {
-  const apiKey = process.env.AIRTABLE_API_KEY;
-  const url = "https://api.airtable.com/v0/appiLuHfb6BruKbXQ/tblCI5ex2JEkyknsQ";
+export async function GET(NextRequest) {
+    let authorID = await NextRequest.url;
+    authorID = authorID.split("=")[1];
+    console.log(authorID);
+    const apiKey = process.env.AIRTABLE_API_KEY;
+    //
+    const url = `https://api.airtable.com/v0/appiLuHfb6BruKbXQ/tblCI5ex2JEkyknsQ?filterByFormula=IF(AND(%7BauthorID%7D+%3D+%22${authorID}%22%2C+NOT(%7Bstatus%7D+%3D+%22deleted%22))%2C1%2C0)`;
   try {
     const response = await fetch(url, {
       headers: {
@@ -11,7 +15,7 @@ export async function GET(Request) {
     });
 
     if (!response.ok) {
-      throw new Error(response.statusText);
+      throw new Error("Failed to fetch data from Airtable");
     }
 
     let data = await response.json();
@@ -20,10 +24,6 @@ export async function GET(Request) {
       if (record.fields) {
         if (record.fields.image) {
           record.fields.image = record.fields.image[0];
-        } else {
-          record.fields.image = {
-            url: "https://via.placeholder.com/150",
-          };
         }
       }
       return record;

@@ -1,10 +1,33 @@
 import { useFormik } from "formik";
+import { useRouter } from "next/navigation";
 import * as Yup from 'yup';
 const validationSchema = Yup.object({
 
 	email: Yup.string().email('Geçersiz e-mail adresi').required('Zorunlu alan'),
 });
 const LoginForm = () => {
+  const router = useRouter();
+  const accessAccount = async (values) => {
+
+    const response = await fetch("/api/auth", {
+      method: "POST",
+      body: JSON.stringify(values),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const resp = await response.json();
+    if (resp.id) {
+      localStorage.setItem("userId", resp.id);
+      router.push("/me/blogs");
+
+    } else {
+      console.log("error");
+    } 
+    return resp;
+  };
+
+
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -13,7 +36,7 @@ const LoginForm = () => {
         validationSchema,
 
         onSubmit: (values) => {
-            console.log(values);
+            accessAccount(values);
         },
     });
 

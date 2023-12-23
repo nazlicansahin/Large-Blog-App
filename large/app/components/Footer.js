@@ -1,8 +1,21 @@
+"use client"
+import { usePathname } from 'next/navigation'
 
 const Footer = () => {
+  const pathname = usePathname()
 
-    return (
-<footer className="bg-white ">
+  // Check if the current location is the homepage
+  const isHomepage = pathname === '/';
+  if (isHomepage) {
+    return null;
+  }
+
+  return (
+    <footer
+      className={`bg-white position-${isHomepage ? 'fixed' : 'relative'} z-10`}
+      style={{ bottom: isHomepage ? '0' : 'auto' }}
+    >
+      
   <div className="mx-auto max-w-screen-xl px-2 pb-4 pt-8 sm:px-3 lg:px-4 lg:pt-6">
     <div
       className="mt-2 border-t border-gray-100 pt-8 sm:flex sm:items-center sm:justify-between lg:mt-0"
@@ -117,7 +130,8 @@ const Footer = () => {
       </ul>
     </div>
   </div>
-</footer>
-    )
-}
-export default Footer
+    </footer>
+  );
+};
+
+export default Footer;

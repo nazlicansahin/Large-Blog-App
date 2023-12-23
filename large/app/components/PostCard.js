@@ -10,7 +10,7 @@ return(
         href={'blogs/'+ props.address}
         className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
       >
-        {props.title}
+        {props.tags}
       </a>
     </div>
     <div className="group relative">
@@ -28,7 +28,7 @@ return(
         <p className="font-semibold text-gray-900">
           <a href={'blogs/'+ props.address}>
             <span className="absolute inset-0" />
-            {props.title}
+            {props.author}
           </a>
         </p>
         <p className="text-gray-600">{props.title}</p>
