@@ -75,8 +75,8 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li className="text-white">
-                  <Link href="/me">
-                    My Profile
+                  <Link href="/logout">
+                    Log Out
                   </Link>
                 </li>
               </ul>
